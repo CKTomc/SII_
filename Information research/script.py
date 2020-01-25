@@ -41,7 +41,7 @@ queries_size_recpre_file="queries_size_recpre.pickle"
 size_means_file="size_means.pickle"
 
 pertinence_file="qrels.text"
-name="cacm.all"
+collection="cacm.all"
 queries_file="query.text"
 punc={"!":0,"#":0,"$":0,"%":0,"&":0,"(":0,")":0,"*":0,"+":0,",":0,".":0,"-":0,"/":0,":":0,";":0,"<":0,"=":0,">":0,"?":0,"@":0,"[":0,"]":0,"^":0,"_":0,"`":0,"{":0,"|":0,"}":0,"~":0,"«":0,"»":0,"°":0,"“":0,"”":0,"’":0,"%":0,"\"":0}
 
@@ -64,11 +64,11 @@ def rebuild_index(indorrev_file):
     return index
   
 #creates the docs index
-def ind_doc(name):
+def ind_doc(collection):
   index={}
   text=False 
   starttime=time.time() 
-  with open(name,encoding="utf-8") as src:     
+  with open(collection,encoding="utf-8") as src:     
     for line in src:
         if line.startswith('.I'):
             num=int(line[3:len(line)])          
@@ -94,7 +94,7 @@ def ind_doc(name):
     save_index(index,ind_file_path)
 
 #creates the reversed index from the docs index file and saves it into a binary file
-def reversed_file():
+def reversed_file(ind_file_path):
     index=rebuild_index(ind_file_path)
     inv={}
     starttime=time.time()
@@ -129,7 +129,7 @@ def access2(word):
         return None
 #returns and saves a new docs index and a new reversed index that hold weights instead of frequencies into binary files
 #using the docs index and the reversed index stored previously      
-def weights_indexes():
+def weights_indexes(ind_file_path,rev_file_path):
     starttime=time.time()
     indexwords=rebuild_index(rev_file_path)
     indexdocs=rebuild_index(ind_file_path)
@@ -533,7 +533,7 @@ import os
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
-        uic.loadUi('gui.ui', self)
+        uic.loadUi('welcome.ui', self)
         self.exploreindexes.clicked.connect(self.expind)
         self.vectormodel.clicked.connect(self.expvector)
         self.booleanmodel.clicked.connect(self.expboolean)
@@ -653,7 +653,7 @@ class Uieval(QtWidgets.QMainWindow):
 class Uiboolean(QtWidgets.QMainWindow):
     def __init__(self):
         super(Uiboolean, self).__init__()
-        uic.loadUi('booleen.ui', self)
+        uic.loadUi('boolean.ui', self)
         self.process.clicked.connect(self.proc)
         self.show()
         
@@ -750,7 +750,7 @@ class Uiindexes(QtWidgets.QMainWindow):
 class Uivector(QtWidgets.QMainWindow):
     def __init__(self):
         super(Uivector, self).__init__()
-        uic.loadUi('vectoriel.ui', self)
+        uic.loadUi('vector.ui', self)
         self.jac.clicked.connect(self.jacf)
         self.cos.clicked.connect(self.cosf)
         self.dicoef.clicked.connect(self.dicoeff)
@@ -819,18 +819,19 @@ class Uivector(QtWidgets.QMainWindow):
         
 app = QtWidgets.QApplication(sys.argv)
 window = Ui()
-#ءwindow.show()
 app.exec()
 
-"""ind_doc(name)
-reversed_file()
-weights_indexes()
+#indexes need to be created at first so to explore the app results
+"""
+ind_doc(collection)
+reversed_file(ind_file_path)
+weights_indexes(ind_file_path,rev_file_path)
 queries_index(queries_file)
 true_pertinent_docs(pertinence_file)
 vector_model4(queries_index_file,w_ind_file_path)
 vector_model2(queries_index_file,w_ind_file_path)
 vector_model3(queries_index_file,w_ind_file_path)
-vector_model1(queries_index_file,w_ind_file_path)"""
-#evalfmesures(cosinus_results_file)
-#bestofbestmetrics(evaluation_file)
-#recallprecision_curve()
+vector_model1(queries_index_file,w_ind_file_path)
+evalfmesures(cosinus_results_file)
+bestofbestmetrics(evaluation_file)
+recallprecision_curve()"""

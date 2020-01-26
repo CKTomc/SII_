@@ -39,7 +39,7 @@
      <enum>QFrame::Plain</enum>
     </property>
     <property name="text">
-     <string>Developped with PYTHON and QT for information-research purpose, the app gives the ability to explore several indexes (documents, reversed files, weighted ...etc and access functionalities as well as exploring information research models such as the boolean and vector models by finding large and rich technical results</string>
+     <string>Developped in January 2020, with PYTHON and QT for information-research purpose, the app gives the ability to explore several indexes (documents, reversed files, weighted ...etc and access functionalities as well as exploring information research models such as the boolean and vector models by finding large and rich technical results</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>

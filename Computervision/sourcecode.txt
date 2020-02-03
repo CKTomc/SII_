@@ -1,0 +1,96 @@
+#include "stdafx.h"
+#include "stdafx.h"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include <stdlib.h>
+#include <stdio.h>
+#include "opencv2/core.hpp"
+#include "opencv2/opencv.hpp"
+#include <iostream>
+using namespace cv;
+using namespace std;
+
+int dilate_type=0;
+int dilate_size;
+
+#include "stdafx.h"
+#include <opencv2\core.hpp>
+#include <opencv2\highgui.hpp>
+#include <algorithm> 
+using namespace cv;
+using namespace std;
+
+
+int _tmain(int argc, _TCHAR* argv[]){
+			   		   
+		    VideoCapture cap;
+			if (!cap.open(0)){				
+				return 0;
+			}
+			for (;;){
+			Mat frame;
+			cap >> frame;
+			if (frame.empty()){ return -1; }
+			flip(frame, frame, 1);
+	
+			Mat element = getStructuringElement(dilate_type, Size(2 * dilate_size + 1, 2 * dilate_size + 1));
+		        //converting to hsv to detect colors
+			Mat hsv;
+			cvtColor(frame, hsv, COLOR_BGR2HSV);
+			imshow("hsv", hsv);
+			vector<pair<int, int>> red; // store red triangle points
+			int redsize=0, blacksize=0; //number of points for each color
+			vector<pair<int, int>> black; // store black square points
+			pair<float, float> redcenter;
+			pair<float, float> blackcenter;
+			for (int i = 0; i < hsv.rows; i++){
+				for (int j = 0; j < hsv.cols; j++){
+					Vec3b p = hsv.at<Vec3b>(i,j);
+					int h = p.val[0]; //hue
+					int s = p.val[1];// intensity
+					int v = p.val[2];	//value				
+					//red range
+					if ((h >= 0 && h <= 10 && s >= 120 && s <= 255 && v >= 70 && v <= 255) || (h >= 170 && h <= 180 && s >= 120 && s <= 255 && v >= 70 && v <= 255)){
+						red.emplace_back(i, j);
+						redsize += 1;
+					}
+					//black range
+					if (h >= 0 && h <= 180 && s >= 0 && s <= 255 && v >= 0 && v <= 30 ){
+						black.emplace_back(i, j);
+						blacksize += 1;
+					}
+				}
+			}
+                                            int sri = 0, srj = 0, sbi = 0, sbj = 0; // to sum the coordinates  of each color
+			if (redsize != 0){				
+				for (int i = 0; i < redsize; i++){
+                                                                           //sum
+					sri = sri + red[i].first; srj = srj + red[i].second;
+				}
+                                                           //calculate the center of the red triangle                     
+				redcenter = make_pair(sri / redsize, srj / redsize);
+			}
+			if (blacksize != 0){
+				for (int i = 0; i < blacksize; i++){
+					sbi = sbi + black[i].first; sbj = sbj + black[i].second;
+				}
+                                                           //calculate the center of the black square
+				blackcenter = make_pair(sbi / blacksize, sbj / blacksize);
+			}
+			printf(" Red center: %f ", redcenter);
+			printf(" Black center: %f ", blackcenter);
+			Mat bgr;
+			Mat gray;
+			Mat res;
+                                            //converting hsv to grayscale
+			cvtColor(hsv, bgr, COLOR_HSV2BGR);
+			cvtColor(bgr, gray, COLOR_BGR2GRAY);
+			// convert grayscale to binary image
+			threshold(gray, gray, 100, 255, THRESH_BINARY);	
+                                            //dilation for better contours		
+			dilate(gray, gray, element);
+			               imshow("alltreats", gray);
+                     if (waitKey(60) == 27) {
+ 				break;
+			} // stop capturing by pressing ESC
+	         	}

@@ -116,7 +116,7 @@ public void info() {
 	 textarea.appendText("Nombre d'instances: "+instances.getNbrinst());
 	 textarea.appendText("\nNombre d'attributs: "+instances.getNbratt());
 	 textarea.appendText("\nValeurs manquantes: Aucune.\n");
-	 textarea.appendText("\nTypes: Numériques\n");
+	 textarea.appendText("\nTypes: NumÃ©riques\n");
 	 VBox vbox=new VBox(textarea);
      Scene s=new Scene(vbox);
      Stage primarystage=new Stage();
@@ -187,7 +187,7 @@ public void apriori() {
 	}
 	
 	
-	//affichage des instances après discretisation
+	//affichage des instances aprÃ¨s discretisation
 	for(int i=0;i<itemsets.size();i++) {
 		for(int j=0;j<itemsets.get(i).getInstance().size();j++) {
 			System.out.print(itemsets.get(i).getInstance().get(j).getValue());}	
@@ -197,7 +197,7 @@ public void apriori() {
 	//cpt chaque item : item : compte
 	ArrayList<Item> newitemsets=new ArrayList<Item>();
 	int cpt=0;int valitem=0;
-	int j=itemsets.get(0).getInstance().size()-1;//les instances après discretisation		
+	int j=itemsets.get(0).getInstance().size()-1;//les instances aprÃ¨s discretisation		
 	//comptage
 	for(int i=0;i<j;i++) {	
 		ArrayList<Integer> vals=new ArrayList<Integer>();
@@ -216,12 +216,6 @@ public void apriori() {
 		  newitemsets.add(it);}
       } }
 	
-	/*//affichage 
-	for (int k=0;k<newitemsets.size();k++) {
-		System.out.println(newitemsets.get(k).a.getName()+" "+newitemsets.get(k).a.getValue()+" "+newitemsets.get(k).frequence);
-	}*/
-		    
-	//combinaisons
 	
 	ArrayList<ArrayList<Item>> combinaisons=new ArrayList<ArrayList<Item>>();
 	
@@ -238,7 +232,7 @@ public void apriori() {
 			}
 		}}
 		else {
-				//pour chaque item des items combinés précédemment
+				//pour chaque item des items combinÃ©s prÃ©cÃ©demment
 				for(int i=0;i<combinaisons.size();i++)					
 				 {//parcourir les itemsets
 					ArrayList <Item>nouv=new ArrayList<Item>();
@@ -281,14 +275,6 @@ public void apriori() {
 		    
 	}while(combinaisons.size()!=oldsize);	
 	
-	//garder les plus grands
-	/*ArrayList<Integer> setasupp=new ArrayList<Integer>();
-	int max=combinaisons.get(0).size();
-	int ind=0;
-	for(int i=1;i<combinaisons.size();i++) {
-		if(combinaisons.get(i).size()<max) {setasupp.add(i);}
-		if(combinaisons.get(i).size()>max) {setasupp.add(ind);max=combinaisons.get(i).size();ind=i;}
-	}*/
 	
 	//affichage des itemsets finaux
 	for (int i=0;i<combinaisons.size();i++) {
@@ -300,7 +286,7 @@ public void apriori() {
 	
 //association rules	
 	int ind;
-	apriorires.appendText("************Règles d'associations: Calcul des confiances*********\n");
+	apriorires.appendText("************RÃ¨gles d'associations: Calcul des confiances*********\n");
 	for(int i=0;i<combinaisons.size();i++) {
 	 
 	int cpt1=0;int cpt2=0;
@@ -401,7 +387,7 @@ public void eclat() {
 	}
 	
 	
-	//affichage des instances après discretisation
+	//affichage des instances aprÃ¨s discretisation
 	for(int i=0;i<itemsets.size();i++) {
 		for(int j=0;j<itemsets.get(i).getInstance().size();j++) {
 			System.out.print(itemsets.get(i).getInstance().get(j).getValue());}	
@@ -411,7 +397,7 @@ public void eclat() {
 	//cpt chaque item : item : compte
 	ArrayList<Item> newitemsets=new ArrayList<Item>();
 	int cpt;int valitem;
-	int j=itemsets.get(0).getInstance().size()-1;//les instances après discretisation		
+	int j=itemsets.get(0).getInstance().size()-1;//les instances aprÃ¨s discretisation		
 	//comptage
 	for(int i=0;i<j;i++) {	
 		ArrayList<Integer> vals=new ArrayList<Integer>();
@@ -431,13 +417,6 @@ public void eclat() {
 		  newitemsets.add(it);}
       } }
 	
-	/*//affichage 
-	for (int k=0;k<newitemsets.size();k++) {
-		System.out.println(newitemsets.get(k).a.getName()+" "+newitemsets.get(k).a.getValue()+" "+newitemsets.get(k).frequence);
-	}*/
-		    
-	//combinaisons
-	
 	ArrayList<ArrayList<Item>> combinaisons=new ArrayList<ArrayList<Item>>();
 	
 	
@@ -453,7 +432,7 @@ public void eclat() {
 			}
 		}}
 		else {
-				//pour chaque item des items combinés précédemment
+				//pour chaque item des items combinÃ©s prÃ©cÃ©demment
 				for(int i=0;i<combinaisons.size();i++)					
 				 {//parcourir les itemsets
 					ArrayList <Item>nouv=new ArrayList<Item>();
@@ -496,15 +475,6 @@ public void eclat() {
 		    
 	}while(combinaisons.size()!=oldsize);	
 	
-	//garder les plus grands
-	/*ArrayList<Integer> setasupp=new ArrayList<Integer>();
-	int max=combinaisons.get(0).size();
-	int ind=0;
-	for(int i=1;i<combinaisons.size();i++) {
-		if(combinaisons.get(i).size()<max) {setasupp.add(i);}
-		if(combinaisons.get(i).size()>max) {setasupp.add(ind);max=combinaisons.get(i).size();ind=i;}
-	}*/
-	
 	//affichage des itemsets finaux
 	for (int i=0;i<combinaisons.size();i++) {
 		for (j=0;j<combinaisons.get(i).size();j++)
@@ -515,7 +485,7 @@ public void eclat() {
 	
 //association rules	
 	int ind;
-	eclatres.appendText("************Règles d'associations: Calcul des confiances*********\n");
+	eclatres.appendText("************RÃ¨gles d'associations: Calcul des confiances*********\n");
 	for(int i=0;i<combinaisons.size();i++) {
 	 
 	int cpt1=0;int cpt2=0;
@@ -558,7 +528,7 @@ eclattime.appendText(timeElapsed+" ms");
 public void kmedoids() {
 	kmedres.clear();
 	kmedtime.clear();
-	float cout=0;
+	
 	  long startTime = System.currentTimeMillis();
 	  Kmedoids k=new Kmedoids();
 	  int cl=10;
@@ -569,7 +539,6 @@ public void kmedoids() {
 	for (int i=0;i<clusters.size();i++) {
 			kmedres.appendText("******Cluster"+i+"******\n");
 			kmedres.appendText("Cout: "+clusters.get(i).coutclust());
-			 cout+=clusters.get(i).coutclust();
 			kmedres.appendText("Nombre d'objets: "+clusters.get(i).getObjects().size()+"\n");
 			kmedres.appendText("Medoid: "+instances.getInstances().indexOf(clusters.get(i).representative)+"\n");
 			for(int j=0;j<clusters.get(i).objects.size();j++) {
@@ -577,14 +546,12 @@ public void kmedoids() {
 			}
 			kmedres.appendText("\n");
 		}
-	cout=cout-5000;
-	kmedres.appendText("\n*****Cout total*****:"+cout);
+	
 	kmedtime.appendText(timeElapsed+" ms");
 	 
 }
 @FXML
 public void clarans() {
-	float cout=0;
 	long startTime = System.currentTimeMillis();
 	 claransres.clear();
 	 claranstime.clear();
@@ -596,7 +563,6 @@ public void clarans() {
 	 for (int i=0;i<clusters.size();i++) {
 		 claransres.appendText("******Cluster"+i+"******\n");
 		 claransres.appendText("Cout: "+clusters.get(i).coutclust());
-		 cout+=clusters.get(i).coutclust();
 		 claransres.appendText("Nombre d'objets: "+clusters.get(i).getObjects().size()+"\n");
 		 claransres.appendText("Medoid: "+instances.getInstances().indexOf(clusters.get(i).representative)+"\n");
 			for(int j=0;j<clusters.get(i).objects.size();j++) {
@@ -604,8 +570,6 @@ public void clarans() {
 			}
 			claransres.appendText("\n");
 		}
-	 cout=cout-5000;
-	 claransres.appendText("\n*****Cout total*****:"+cout);
 	 claranstime.appendText(timeElapsed+"ms");
 	 
 }

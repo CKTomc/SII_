@@ -1,1 +1,6 @@
-Implementation of Apriori, K-medoids and Clarans algorithms.
+Data mining project
+- Study of the data 
+- Descriptive exploration of the data (boxplots, histos, correlation..etc)
+- Association rules
+- Unsupervised classification
+- Human machine interface

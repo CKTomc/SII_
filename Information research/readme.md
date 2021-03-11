@@ -1,1 +1,2 @@
-Information research project
+Information research project (with HMI)
+
